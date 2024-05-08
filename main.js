@@ -5,8 +5,6 @@ const comentario = document.getElementById ('comentario');
 
 
 
-var user
-
 function onSubmit(event){
     event.preventDefault()
     const valueNombre = yourName.value
@@ -37,5 +35,4 @@ function onSubmit(event){
     localStorage.getItem('Comentarios',valueComentario) */
 
 };
-submitBtn.addEventListener("click",onSubmit);
-
+submitBtn.addEventListener("mouseup",onSubmit);
