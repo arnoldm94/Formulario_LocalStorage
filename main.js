@@ -2,8 +2,9 @@ const yourName = document.getElementById ('name');
 const submitBtn = document.getElementById ('submitBtn');
 const yourEmail = document.getElementById ('email');
 const comentario = document.getElementById ('comentario');
+const borrar = document.getElementById("borrar")
 
-
+let myArray = []
 
 function onSubmit(event){
     event.preventDefault()
@@ -18,21 +19,36 @@ function onSubmit(event){
 
     }))
     
-    const user = JSON.parse(localStorage.getItem('user'))
-    const h1 = document.createElement("h1")
+    const user = JSON.parse(localStorage.getItem('user')) || []
+    myArray.push (user);
+    console.log(user)
+
+    localStorage.setItem('user', JSON.stringify({myArray}))
+   const h1 = document.getElementById("select_h1")
+  
     h1.textContent = "se han guardado los datos de: " + user.Nombre
-    document.body.appendChild(h1)
-    
-   
-    
-    /* 
-    localStorage.setItem('Nombre',valueNombre)
-    localStorage.setItem('Email',valueEmail)
-    localStorage.setItem('Comentarios',valueComentario)
+    const listaordenada = document.getElementById("lista")
+    document.body.insertBefore(h1,listaordenada)
  
-    localStorage.getItem('Nombre',valueNombre)
-    localStorage.getItem('Email',valueEmail)
-    localStorage.getItem('Comentarios',valueComentario) */
+   
+    const li = document.createElement("li")
+    listaordenada.appendChild(li)
+    li.textContent="Nombre: " +user.Nombre + "      Email: " + user.Email + "    Comentarios: " +user.Comentario
+    
+};
+
+function erasedata(event){
+event.preventDefault
+localStorage.removeItem("user");
+const h1 = document.getElementById("select_h1")
+const listaordenada = document.getElementById("lista")
+h1.remove()
+listaordenada.remove()
+myArray.length=0
+
 
 };
-submitBtn.addEventListener("mouseup",onSubmit);
+
+
+submitBtn.addEventListener("click",onSubmit);
+borrar.addEventListener("click",erasedata)
